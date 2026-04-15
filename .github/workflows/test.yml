@@ -1,0 +1,23 @@
+name: Test Workflow
+ 
+on:
+  pull_request:
+    branches: main   # ❌ Should be [main]
+ 
+jobs:
+  test:
+    runs-on: ubuntu-latest
+ 
+    steps:
+      - uses: actions/checkout@v3
+ 
+      - name: Run script
+        run: |
+          echo "Running tests"
+           echo "This line has extra indentation"   # ❌ indentation error
+ 
+      - name: Missing uses field
+        uses:   # ❌ empty value
+ 
+      - name: Invalid syntax
+        run: echo "Hello   # ❌ missing closing quote
