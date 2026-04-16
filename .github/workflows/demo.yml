@@ -1,0 +1,11 @@
+name: AI Auto-Fix Demo
+
+on: push
+
+jobs:
+  test-job:
+    runs-on: ubuntu-latetest  # BUG 1: Typo in the OS name!
+
+    steps:
+      - name: Say Hello
+        run: eecho "Hello World!" # BUG 2: Typo in the echo command!
