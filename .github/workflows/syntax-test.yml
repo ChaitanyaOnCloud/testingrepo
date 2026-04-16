@@ -1,0 +1,13 @@
+name: Syntax Error Demo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run-tests:
+  runs-on: ubuntu-latest # BUG 1: Bad indentation (runs-on must be indented under run-tests!)
+    steps:               # BUG 2: Weird indentation misalignment 
+    name: Hello          # BUG 3: List array item is missing its hyphen (should be "- name:")
+    run: echo "YAML is broken!"
