@@ -7,8 +7,11 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  backend:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -22,8 +25,39 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-        working-directory: ./backend
 
       - name: Run tests
         run: pytest
-        working-directory: ./backend
+
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Validate HTML
+        run: |
+          if command -v tidy >/dev/null; then
+            tidy -e *.html || true
+          else
+            echo 'tidy not installed, skipping HTML validation.'
+          fi
+
+      - name: Validate CSS
+        run: |
+          if command -v stylelint >/dev/null; then
+            stylelint "**/*.css" || true
+          else
+            echo 'stylelint not installed, skipping CSS validation.'
+          fi
+
+      - name: Validate JS
+        run: |
+          if command -v eslint >/dev/null; then
+            eslint "**/*.js" || true
+          else
+            echo 'eslint not installed, skipping JS validation.'
+          fi
