@@ -5,13 +5,14 @@ on: push
 jobs:
   build-job:
     runs-on: ubuntu-latest
-    
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v1  # BUG 1: Version 1 is super expired and will crash.
+        uses: actions/checkout@v4
 
       - name: Setup Node Env
-        uses: actions/setp-node@v4 # BUG 2: Spelled "setp" instead of "setup" - GitHub will fail to download this action!
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
 
       - name: Verify Installation
-        run: nide --version        # BUG 3: Misspelled "node" as "nide" in the shell command!
+        run: node --version
