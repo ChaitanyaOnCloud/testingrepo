@@ -5,9 +5,7 @@ on: push
 jobs:
   deploy-job:
     runs-on: ubuntu-latest
-    # BUG: This job demands that "lint-job" finishes first.
-    # But "lint-job" doesn't exist anywhere in this file!
-    needs: [build-job, lint-job] 
+    needs: [build-job]
     steps:
       - name: Deploying App
         run: echo "Deploying!"
